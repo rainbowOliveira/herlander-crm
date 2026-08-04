@@ -71,14 +71,11 @@ export default async function EditarSessaoPage({
           />
         </div>
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Data e hora *</label>
-          <CampoDataHora
-            defaultDiaTodo={sessao.dia_todo}
-            defaultValue={defaultDataHora}
-            inputClass={inputClass}
-          />
-        </div>
+        <CampoDataHora
+          defaultDiaTodo={sessao.dia_todo}
+          defaultValue={defaultDataHora}
+          inputClass={inputClass}
+        />
 
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">Local</label>

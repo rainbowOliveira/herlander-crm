@@ -58,10 +58,7 @@ export default async function NovaSessaoPage() {
           />
         </div>
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Data e hora *</label>
-          <CampoDataHora inputClass={inputClass} />
-        </div>
+        <CampoDataHora inputClass={inputClass} />
 
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">Local</label>

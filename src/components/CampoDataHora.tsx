@@ -11,16 +11,49 @@ interface Props {
 export default function CampoDataHora({ defaultDiaTodo = false, defaultValue, inputClass }: Props) {
   const [diaTodo, setDiaTodo] = useState(defaultDiaTodo)
 
-  const dateOnly = defaultValue?.slice(0, 10) ?? ''
+  // Keep both values in sync so switching preserves what the user picked
+  const [valorDatetime, setValorDatetime] = useState(() => {
+    if (!defaultValue) return ''
+    return defaultDiaTodo ? `${defaultValue}T00:00` : defaultValue
+  })
+  const [valorData, setValorData] = useState(() => defaultValue?.slice(0, 10) ?? '')
+
+  function handleToggle(checked: boolean) {
+    if (checked) {
+      // datetime → all-day: copy the date the user already chose
+      if (valorDatetime) setValorData(valorDatetime.slice(0, 10))
+    } else {
+      // all-day → datetime: sync date, keep existing time if date unchanged
+      if (valorData && valorDatetime.slice(0, 10) !== valorData) {
+        setValorDatetime(valorData + 'T00:00')
+      }
+    }
+    setDiaTodo(checked)
+  }
 
   return (
-    <div className="space-y-2">
+    <div>
+      <div className="flex items-center justify-between mb-1">
+        <label className="text-sm font-medium text-gray-700">Data e hora *</label>
+        <label className="flex items-center gap-1.5 cursor-pointer select-none">
+          <input
+            type="checkbox"
+            name="dia_todo"
+            value="true"
+            checked={diaTodo}
+            onChange={e => handleToggle(e.target.checked)}
+            className="rounded border-gray-300 focus:ring-gray-400"
+          />
+          <span className="text-sm text-gray-500">Dia todo</span>
+        </label>
+      </div>
       {diaTodo ? (
         <input
           type="date"
           name="data_hora"
           required
-          defaultValue={dateOnly}
+          value={valorData}
+          onChange={e => setValorData(e.target.value)}
           className={inputClass}
         />
       ) : (
@@ -28,21 +61,11 @@ export default function CampoDataHora({ defaultDiaTodo = false, defaultValue, in
           type="datetime-local"
           name="data_hora"
           required
-          defaultValue={defaultValue}
+          value={valorDatetime}
+          onChange={e => setValorDatetime(e.target.value)}
           className={inputClass}
         />
       )}
-      <label className="flex items-center gap-2 cursor-pointer w-fit">
-        <input
-          type="checkbox"
-          name="dia_todo"
-          value="true"
-          checked={diaTodo}
-          onChange={e => setDiaTodo(e.target.checked)}
-          className="rounded border-gray-300 text-gray-900 focus:ring-gray-400"
-        />
-        <span className="text-sm text-gray-600">Dia todo</span>
-      </label>
     </div>
   )
 }
