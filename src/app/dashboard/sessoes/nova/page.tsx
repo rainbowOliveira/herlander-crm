@@ -2,9 +2,17 @@ import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { criarSessao } from '../actions'
+import SelectPesquisavel from '@/components/SelectPesquisavel'
+import CampoDataHora from '@/components/CampoDataHora'
 
 const inputClass =
   'w-full border border-gray-300 rounded-lg px-3 py-2 text-sm text-gray-900 bg-white focus:outline-none focus:ring-2 focus:ring-gray-400'
+
+const TIPOS = [
+  { value: 'casamento',   label: 'Casamento' },
+  { value: 'evento',      label: 'Evento' },
+  { value: 'corporativo', label: 'Corporativo' },
+]
 
 export default async function NovaSessaoPage() {
   const supabase = await createClient()
@@ -14,6 +22,8 @@ export default async function NovaSessaoPage() {
     .order('nome')
 
   if (!clientes || clientes.length === 0) redirect('/dashboard/clientes')
+
+  const opcoesClientes = clientes.map(c => ({ value: c.id, label: c.nome }))
 
   return (
     <div className="max-w-lg">
@@ -27,27 +37,29 @@ export default async function NovaSessaoPage() {
       <form action={criarSessao} className="bg-white rounded-xl border border-gray-200 p-4 md:p-6 space-y-4">
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">Cliente *</label>
-          <select name="cliente_id" required className={inputClass}>
-            <option value="">Seleciona um cliente</option>
-            {clientes.map(c => (
-              <option key={c.id} value={c.id}>{c.nome}</option>
-            ))}
-          </select>
+          <SelectPesquisavel
+            name="cliente_id"
+            options={opcoesClientes}
+            placeholder="Selecionar cliente…"
+            required
+            className={inputClass}
+          />
         </div>
 
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">Tipo *</label>
-          <select name="tipo" required className={inputClass}>
-            <option value="">Seleciona o tipo</option>
-            <option value="casamento">Casamento</option>
-            <option value="evento">Evento</option>
-            <option value="corporativo">Corporativo</option>
-          </select>
+          <SelectPesquisavel
+            name="tipo"
+            options={TIPOS}
+            placeholder="Selecionar tipo…"
+            required
+            className={inputClass}
+          />
         </div>
 
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">Data e hora *</label>
-          <input type="datetime-local" name="data_hora" required className={inputClass} />
+          <CampoDataHora inputClass={inputClass} />
         </div>
 
         <div>

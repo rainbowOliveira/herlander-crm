@@ -48,7 +48,7 @@ export default async function SessoesPage() {
                   </span>
                   <p className="font-medium text-gray-900 truncate">{s.clientes?.nome}</p>
                 </div>
-                <p className="text-sm text-gray-400">{formatDisplay(s.data_hora)}{s.local ? ` · ${s.local}` : ''}</p>
+                <p className="text-sm text-gray-400">{formatDisplay(s.data_hora, s.dia_todo)}{s.local ? ` · ${s.local}` : ''}</p>
               </div>
 
               {/* Botões acima do link overlay via z-10 */}

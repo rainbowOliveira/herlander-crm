@@ -48,7 +48,7 @@ export default async function DetalhesSessaoPage({
         </div>
 
         <Campo label="Cliente" valor={sessao.clientes?.nome} />
-        <Campo label="Data e hora" valor={formatDisplay(sessao.data_hora)} />
+        <Campo label="Data e hora" valor={formatDisplay(sessao.data_hora, sessao.dia_todo)} />
         {sessao.local && <Campo label="Local" valor={sessao.local} />}
         {sessao.ponto_encontro && <Campo label="Ponto de encontro" valor={sessao.ponto_encontro} />}
         {sessao.clientes?.email && <Campo label="Email do cliente" valor={sessao.clientes.email} />}

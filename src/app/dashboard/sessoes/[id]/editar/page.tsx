@@ -1,11 +1,19 @@
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
-import { utcToInput } from '@/lib/dates'
+import { utcToInput, utcToDateInput } from '@/lib/dates'
 import { atualizarSessao } from '../../actions'
+import SelectPesquisavel from '@/components/SelectPesquisavel'
+import CampoDataHora from '@/components/CampoDataHora'
 
 const inputClass =
   'w-full border border-gray-300 rounded-lg px-3 py-2 text-sm text-gray-900 bg-white focus:outline-none focus:ring-2 focus:ring-gray-400'
+
+const TIPOS = [
+  { value: 'casamento',   label: 'Casamento' },
+  { value: 'evento',      label: 'Evento' },
+  { value: 'corporativo', label: 'Corporativo' },
+]
 
 export default async function EditarSessaoPage({
   params,
@@ -22,6 +30,12 @@ export default async function EditarSessaoPage({
 
   if (!sessao) redirect('/dashboard/sessoes')
 
+  const opcoesClientes = (clientes ?? []).map(c => ({ value: c.id, label: c.nome }))
+
+  const defaultDataHora = sessao.dia_todo
+    ? utcToDateInput(sessao.data_hora)
+    : utcToInput(sessao.data_hora)
+
   return (
     <div className="max-w-lg">
       <div className="flex items-center gap-3 mb-6">
@@ -36,30 +50,32 @@ export default async function EditarSessaoPage({
 
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">Cliente *</label>
-          <select name="cliente_id" required defaultValue={sessao.cliente_id} className={inputClass}>
-            {clientes?.map(c => (
-              <option key={c.id} value={c.id}>{c.nome}</option>
-            ))}
-          </select>
+          <SelectPesquisavel
+            name="cliente_id"
+            options={opcoesClientes}
+            defaultValue={sessao.cliente_id}
+            required
+            className={inputClass}
+          />
         </div>
 
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">Tipo *</label>
-          <select name="tipo" required defaultValue={sessao.tipo} className={inputClass}>
-            <option value="casamento">Casamento</option>
-            <option value="evento">Evento</option>
-            <option value="corporativo">Corporativo</option>
-          </select>
+          <SelectPesquisavel
+            name="tipo"
+            options={TIPOS}
+            defaultValue={sessao.tipo}
+            required
+            className={inputClass}
+          />
         </div>
 
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">Data e hora *</label>
-          <input
-            type="datetime-local"
-            name="data_hora"
-            required
-            defaultValue={utcToInput(sessao.data_hora)}
-            className={inputClass}
+          <CampoDataHora
+            defaultDiaTodo={sessao.dia_todo}
+            defaultValue={defaultDataHora}
+            inputClass={inputClass}
           />
         </div>
 
