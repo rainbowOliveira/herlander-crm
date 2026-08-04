@@ -28,12 +28,18 @@ export default async function DashboardLayout({
             Herlander CRM
           </p>
         </div>
-        <nav className="flex-1 p-3">
+        <nav className="flex-1 p-3 space-y-1">
           <Link
             href="/dashboard/clientes"
             className="flex items-center px-3 py-2 rounded-lg text-sm text-gray-700 hover:bg-gray-50 transition"
           >
             Clientes
+          </Link>
+          <Link
+            href="/dashboard/sessoes"
+            className="flex items-center px-3 py-2 rounded-lg text-sm text-gray-700 hover:bg-gray-50 transition"
+          >
+            Sessões
           </Link>
         </nav>
         <div className="p-4 border-t border-gray-100">
@@ -52,9 +58,8 @@ export default async function DashboardLayout({
             Herlander CRM
           </p>
           <div className="flex items-center gap-4">
-            <Link href="/dashboard/clientes" className="text-sm text-gray-700">
-              Clientes
-            </Link>
+            <Link href="/dashboard/clientes" className="text-sm text-gray-700">Clientes</Link>
+            <Link href="/dashboard/sessoes" className="text-sm text-gray-700">Sessões</Link>
             <LogoutButton />
           </div>
         </header>
