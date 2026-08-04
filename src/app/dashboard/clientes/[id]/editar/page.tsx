@@ -27,7 +27,7 @@ export default async function EditarClientePage({
       <div className="flex items-center gap-3 mb-6">
         <Link
           href="/dashboard/clientes"
-          className="text-sm text-gray-400 hover:text-gray-700 transition"
+          className="text-sm text-gray-400 hover:text-gray-700 active:opacity-60 transition-colors"
         >
           ← Clientes
         </Link>
@@ -55,13 +55,13 @@ export default async function EditarClientePage({
         <div className="flex gap-3 pt-2">
           <button
             type="submit"
-            className="bg-gray-900 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-700 transition"
+            className="bg-gray-900 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-700 active:scale-[0.97] transition"
           >
             Guardar alterações
           </button>
           <Link
             href="/dashboard/clientes"
-            className="px-4 py-2 rounded-lg text-sm font-medium text-gray-500 hover:text-gray-700 transition"
+            className="px-4 py-2 rounded-lg text-sm font-medium text-gray-500 hover:text-gray-700 active:opacity-60 transition-colors"
           >
             Cancelar
           </Link>

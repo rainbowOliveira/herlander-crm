@@ -1,8 +1,8 @@
 import { redirect } from 'next/navigation'
-import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
 import LogoutButton from './LogoutButton'
 import MenuMobile from '@/components/MenuMobile'
+import NavLinks from '@/components/NavLinks'
 
 export default async function DashboardLayout({
   children,
@@ -30,15 +30,7 @@ export default async function DashboardLayout({
           </p>
         </div>
         <nav className="flex-1 p-3 space-y-1">
-          <Link href="/dashboard/clientes" className="flex items-center px-3 py-2 rounded-lg text-sm text-gray-700 hover:bg-gray-50 transition">
-            Clientes
-          </Link>
-          <Link href="/dashboard/sessoes" className="flex items-center px-3 py-2 rounded-lg text-sm text-gray-700 hover:bg-gray-50 transition">
-            Sessões
-          </Link>
-          <Link href="/dashboard/calendario" className="flex items-center px-3 py-2 rounded-lg text-sm text-gray-700 hover:bg-gray-50 transition">
-            Calendário
-          </Link>
+          <NavLinks />
         </nav>
         <div className="p-4 border-t border-gray-100">
           <p className="text-sm font-medium text-gray-700 mb-2">

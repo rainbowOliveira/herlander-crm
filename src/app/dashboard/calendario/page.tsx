@@ -85,7 +85,7 @@ export default async function CalendarioPage({
         <div className="flex items-center justify-between px-4 md:px-6 py-4 border-b border-gray-100">
           <Link
             href={hrefPrev}
-            className="p-2 rounded-lg text-gray-400 hover:text-gray-700 hover:bg-gray-50 transition"
+            className="p-2 rounded-lg text-gray-400 hover:text-gray-700 hover:bg-gray-50 active:scale-95 transition"
           >
             ←
           </Link>
@@ -94,7 +94,7 @@ export default async function CalendarioPage({
           </h2>
           <Link
             href={hrefNext}
-            className="p-2 rounded-lg text-gray-400 hover:text-gray-700 hover:bg-gray-50 transition"
+            className="p-2 rounded-lg text-gray-400 hover:text-gray-700 hover:bg-gray-50 active:scale-95 transition"
           >
             →
           </Link>

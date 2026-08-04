@@ -22,7 +22,7 @@ export default async function SessoesPage() {
         <h1 className="text-2xl font-bold text-gray-900">Sessões</h1>
         <Link
           href="/dashboard/sessoes/nova"
-          className="bg-gray-900 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-700 transition"
+          className="bg-gray-900 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-700 active:scale-[0.97] transition"
         >
           + Nova sessão
         </Link>
@@ -55,7 +55,7 @@ export default async function SessoesPage() {
               <div className="relative z-10 flex items-center gap-4 shrink-0">
                 <Link
                   href={`/dashboard/sessoes/${s.id}/editar`}
-                  className="text-sm text-gray-500 hover:text-gray-900 transition"
+                  className="text-sm text-gray-500 hover:text-gray-900 active:opacity-60 transition-colors"
                 >
                   Editar
                 </Link>

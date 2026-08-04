@@ -28,7 +28,7 @@ export default async function DetalhesSessaoPage({
   return (
     <div className="max-w-lg">
       <div className="flex items-center gap-3 mb-6">
-        <Link href="/dashboard/sessoes" className="text-sm text-gray-400 hover:text-gray-700 transition">
+        <Link href="/dashboard/sessoes" className="text-sm text-gray-400 hover:text-gray-700 active:opacity-60 transition-colors">
           ← Sessões
         </Link>
         <h1 className="text-2xl font-bold text-gray-900">Detalhes da sessão</h1>
@@ -41,7 +41,7 @@ export default async function DetalhesSessaoPage({
           </span>
           <Link
             href={`/dashboard/sessoes/${sessao.id}/editar`}
-            className="text-sm text-gray-500 hover:text-gray-900 transition"
+            className="text-sm text-gray-500 hover:text-gray-900 active:opacity-60 transition-colors"
           >
             Editar
           </Link>

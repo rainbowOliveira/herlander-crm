@@ -15,7 +15,7 @@ export default async function ClientesPage() {
         <h1 className="text-2xl font-bold text-gray-900">Clientes</h1>
         <Link
           href="/dashboard/clientes/novo"
-          className="bg-gray-900 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-700 transition"
+          className="bg-gray-900 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-700 active:scale-[0.97] transition"
         >
           + Novo cliente
         </Link>
@@ -30,15 +30,15 @@ export default async function ClientesPage() {
       ) : (
         <div className="bg-white rounded-xl border border-gray-200 divide-y divide-gray-100">
           {clientes.map(c => (
-            <div key={c.id} className="flex items-center justify-between px-4 md:px-6 py-4">
+            <div key={c.id} className="flex items-center justify-between px-4 md:px-6 py-4 gap-4 hover:bg-gray-50 transition-colors">
               <div>
                 <p className="font-medium text-gray-900">{c.nome}</p>
                 <p className="text-sm text-gray-400">{c.email || c.telefone || '—'}</p>
               </div>
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-4 shrink-0">
                 <Link
                   href={`/dashboard/clientes/${c.id}/editar`}
-                  className="text-sm text-gray-500 hover:text-gray-900 transition"
+                  className="text-sm text-gray-500 hover:text-gray-900 active:opacity-60 transition-colors"
                 >
                   Editar
                 </Link>
