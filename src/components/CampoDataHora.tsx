@@ -32,7 +32,7 @@ export default function CampoDataHora({ defaultDiaTodo = false, defaultValue, in
   }
 
   return (
-    <div>
+    <div className="w-full overflow-hidden">
       <div className="flex items-center justify-between mb-1">
         <label className="text-sm font-medium text-gray-700">Data e hora *</label>
         <label className="flex items-center gap-1.5 cursor-pointer select-none">
