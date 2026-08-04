@@ -42,7 +42,6 @@ export default async function NovaSessaoPage() {
             name="cliente_id"
             options={opcoesClientes}
             placeholder="Selecionar cliente…"
-            required
             className={inputClass}
           />
         </div>
@@ -53,7 +52,6 @@ export default async function NovaSessaoPage() {
             name="tipo"
             options={TIPOS}
             placeholder="Selecionar tipo…"
-            required
             className={inputClass}
           />
         </div>

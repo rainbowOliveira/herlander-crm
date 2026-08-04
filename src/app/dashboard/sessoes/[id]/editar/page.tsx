@@ -55,7 +55,6 @@ export default async function EditarSessaoPage({
             name="cliente_id"
             options={opcoesClientes}
             defaultValue={sessao.cliente_id}
-            required
             className={inputClass}
           />
         </div>
@@ -66,7 +65,6 @@ export default async function EditarSessaoPage({
             name="tipo"
             options={TIPOS}
             defaultValue={sessao.tipo}
-            required
             className={inputClass}
           />
         </div>
