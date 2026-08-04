@@ -21,11 +21,17 @@ export default async function CalendarioPage({
 }) {
   const { ano: anoStr, mes: mesStr } = await searchParams
 
-  // Default to current month in Lisbon timezone
-  const agora = new Date().toLocaleString('en-CA', { timeZone: 'Europe/Lisbon' })
-  const hoje = new Date(agora)
-  const ano = anoStr ? parseInt(anoStr) : hoje.getFullYear()
-  const mes = mesStr ? parseInt(mesStr) : hoje.getMonth() + 1
+  // Current date in Lisbon timezone via formatToParts (reliable cross-platform)
+  const partes = new Intl.DateTimeFormat('en-CA', {
+    timeZone: 'Europe/Lisbon',
+    year: 'numeric', month: '2-digit', day: '2-digit',
+  }).formatToParts(new Date())
+  const anoHoje  = parseInt(partes.find(p => p.type === 'year')!.value)
+  const mesHoje  = parseInt(partes.find(p => p.type === 'month')!.value)
+  const diaHoje  = parseInt(partes.find(p => p.type === 'day')!.value)
+
+  const ano = anoStr ? parseInt(anoStr) : anoHoje
+  const mes = mesStr ? parseInt(mesStr) : mesHoje
 
   // Fetch sessions for this month
   const inicio = new Date(ano, mes - 1, 1).toISOString()
@@ -68,8 +74,7 @@ export default async function CalendarioPage({
   const hrefPrev = `/dashboard/calendario?ano=${prev.ano}&mes=${prev.mes}`
   const hrefNext = `/dashboard/calendario?ano=${next.ano}&mes=${next.mes}`
 
-  const diaHoje = hoje.getDate()
-  const eHojeMesmo = hoje.getFullYear() === ano && hoje.getMonth() + 1 === mes
+  const eHojeMesmo = anoHoje === ano && mesHoje === mes
 
   return (
     <div>
