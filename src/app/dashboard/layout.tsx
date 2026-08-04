@@ -29,17 +29,14 @@ export default async function DashboardLayout({
           </p>
         </div>
         <nav className="flex-1 p-3 space-y-1">
-          <Link
-            href="/dashboard/clientes"
-            className="flex items-center px-3 py-2 rounded-lg text-sm text-gray-700 hover:bg-gray-50 transition"
-          >
+          <Link href="/dashboard/clientes" className="flex items-center px-3 py-2 rounded-lg text-sm text-gray-700 hover:bg-gray-50 transition">
             Clientes
           </Link>
-          <Link
-            href="/dashboard/sessoes"
-            className="flex items-center px-3 py-2 rounded-lg text-sm text-gray-700 hover:bg-gray-50 transition"
-          >
+          <Link href="/dashboard/sessoes" className="flex items-center px-3 py-2 rounded-lg text-sm text-gray-700 hover:bg-gray-50 transition">
             Sessões
+          </Link>
+          <Link href="/dashboard/calendario" className="flex items-center px-3 py-2 rounded-lg text-sm text-gray-700 hover:bg-gray-50 transition">
+            Calendário
           </Link>
         </nav>
         <div className="p-4 border-t border-gray-100">
@@ -57,9 +54,10 @@ export default async function DashboardLayout({
           <p className="text-xs font-semibold text-gray-400 uppercase tracking-widest">
             Herlander CRM
           </p>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
             <Link href="/dashboard/clientes" className="text-sm text-gray-700">Clientes</Link>
             <Link href="/dashboard/sessoes" className="text-sm text-gray-700">Sessões</Link>
+            <Link href="/dashboard/calendario" className="text-sm text-gray-700">Calendário</Link>
             <LogoutButton />
           </div>
         </header>
