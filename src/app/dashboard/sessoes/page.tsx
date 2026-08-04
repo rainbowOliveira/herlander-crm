@@ -37,7 +37,10 @@ export default async function SessoesPage() {
       ) : (
         <div className="bg-white rounded-xl border border-gray-200 divide-y divide-gray-100">
           {sessoes.map(s => (
-            <div key={s.id} className="flex items-center justify-between px-4 md:px-6 py-4 gap-4">
+            <div key={s.id} className="relative flex items-center justify-between px-4 md:px-6 py-4 gap-4 hover:bg-gray-50 transition">
+              {/* Link invisível que cobre toda a linha */}
+              <Link href={`/dashboard/sessoes/${s.id}`} className="absolute inset-0" aria-label={`Ver sessão de ${s.clientes?.nome}`} />
+
               <div className="min-w-0">
                 <div className="flex items-center gap-2 mb-1">
                   <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${tipoBadge[s.tipo]}`}>
@@ -47,13 +50,9 @@ export default async function SessoesPage() {
                 </div>
                 <p className="text-sm text-gray-400">{formatDisplay(s.data_hora)}{s.local ? ` · ${s.local}` : ''}</p>
               </div>
-              <div className="flex items-center gap-4 shrink-0">
-                <Link
-                  href={`/dashboard/sessoes/${s.id}`}
-                  className="text-sm text-gray-500 hover:text-gray-900 transition"
-                >
-                  Ver
-                </Link>
+
+              {/* Botões acima do link overlay via z-10 */}
+              <div className="relative z-10 flex items-center gap-4 shrink-0">
                 <Link
                   href={`/dashboard/sessoes/${s.id}/editar`}
                   className="text-sm text-gray-500 hover:text-gray-900 transition"
