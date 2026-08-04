@@ -22,7 +22,7 @@ export default async function ClientesPage() {
       </div>
 
       {!clientes || clientes.length === 0 ? (
-        <div className="bg-white rounded-xl border border-gray-200 p-12 text-center">
+        <div className="bg-white rounded-xl border border-gray-200 p-8 md:p-12 text-center">
           <p className="text-gray-400 text-sm">
             Ainda não tens clientes. Começa por criar um.
           </p>
@@ -30,7 +30,7 @@ export default async function ClientesPage() {
       ) : (
         <div className="bg-white rounded-xl border border-gray-200 divide-y divide-gray-100">
           {clientes.map(c => (
-            <div key={c.id} className="flex items-center justify-between px-6 py-4">
+            <div key={c.id} className="flex items-center justify-between px-4 md:px-6 py-4">
               <div>
                 <p className="font-medium text-gray-900">{c.nome}</p>
                 <p className="text-sm text-gray-400">{c.email || c.telefone || '—'}</p>

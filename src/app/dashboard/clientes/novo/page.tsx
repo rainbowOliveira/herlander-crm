@@ -17,7 +17,7 @@ export default function NovoClientePage() {
         <h1 className="text-2xl font-bold text-gray-900">Novo cliente</h1>
       </div>
 
-      <form action={criarCliente} className="bg-white rounded-xl border border-gray-200 p-6 space-y-4">
+      <form action={criarCliente} className="bg-white rounded-xl border border-gray-200 p-4 md:p-6 space-y-4">
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">Nome *</label>
           <input type="text" name="nome" required className={inputClass} />

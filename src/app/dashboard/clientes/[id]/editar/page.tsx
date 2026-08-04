@@ -34,7 +34,7 @@ export default async function EditarClientePage({
         <h1 className="text-2xl font-bold text-gray-900">Editar cliente</h1>
       </div>
 
-      <form action={atualizarCliente} className="bg-white rounded-xl border border-gray-200 p-6 space-y-4">
+      <form action={atualizarCliente} className="bg-white rounded-xl border border-gray-200 p-4 md:p-6 space-y-4">
         <input type="hidden" name="id" value={cliente.id} />
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">Nome *</label>
