@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { criarCliente } from '../actions'
+import BotaoSubmit from '@/components/BotaoSubmit'
 
 const inputClass =
   'w-full border border-gray-300 rounded-lg px-3 py-2 text-sm text-gray-900 bg-white focus:outline-none focus:ring-2 focus:ring-gray-400'
@@ -35,12 +36,7 @@ export default function NovoClientePage() {
           <textarea name="notas" rows={4} className={inputClass} />
         </div>
         <div className="flex gap-3 pt-2">
-          <button
-            type="submit"
-            className="bg-gray-900 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-700 active:scale-[0.97] transition"
-          >
-            Guardar
-          </button>
+          <BotaoSubmit label="Guardar" labelPendente="A guardar…" />
           <Link
             href="/dashboard/clientes"
             className="px-4 py-2 rounded-lg text-sm font-medium text-gray-500 hover:text-gray-700 active:opacity-60 transition-colors"
