@@ -27,7 +27,7 @@ export default async function Home() {
               >
                 <p className="text-green-800 font-medium">{row.mensagem}</p>
                 <p className="text-green-600 text-xs mt-1">
-                  {new Date(row.criado_em).toLocaleString('pt-PT')}
+                  {new Date(row.criado_em).toLocaleString('pt-PT', { timeZone: 'Europe/Lisbon' })}
                 </p>
               </div>
             ))}
