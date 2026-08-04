@@ -6,6 +6,7 @@ import { createClient } from '@/lib/supabase/client'
 
 export default function LoginPage() {
   const [modo, setModo] = useState<'login' | 'registo'>('login')
+  const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [erro, setErro] = useState<string | null>(null)
@@ -21,26 +22,61 @@ export default function LoginPage() {
     setLoading(true)
 
     if (modo === 'login') {
-      const { error } = await supabase.auth.signInWithPassword({ email, password })
-      if (error) {
-        setErro('Email ou password incorretos.')
+      // Procura o email associado ao username
+      const { data: emailEncontrado, error: erroLookup } = await supabase
+        .rpc('get_email_by_username', { p_username: username })
+
+      if (erroLookup || !emailEncontrado) {
+        setErro('Utilizador não encontrado.')
         setLoading(false)
         return
       }
+
+      const { error } = await supabase.auth.signInWithPassword({
+        email: emailEncontrado,
+        password,
+      })
+
+      if (error) {
+        setErro('Password incorreta.')
+        setLoading(false)
+        return
+      }
+
       router.push('/dashboard')
       router.refresh()
     } else {
-      const { error } = await supabase.auth.signUp({ email, password })
+      // Registo: cria conta e guarda o username
+      const { data: signUpData, error } = await supabase.auth.signUp({ email, password })
+
       if (error) {
         setErro(error.message)
         setLoading(false)
         return
       }
+
+      if (signUpData.user) {
+        const { error: erroProfile } = await supabase
+          .from('profiles')
+          .insert({ id: signUpData.user.id, username })
+
+        if (erroProfile) {
+          setErro('Conta criada, mas não foi possível guardar o username. Tenta com outro.')
+          setLoading(false)
+          return
+        }
+      }
+
       setMensagem('Conta criada! Já podes entrar.')
       setModo('login')
+      setUsername('')
+      setPassword('')
       setLoading(false)
     }
   }
+
+  const inputClass =
+    'w-full border border-gray-300 rounded-lg px-3 py-2 text-sm text-gray-900 bg-white focus:outline-none focus:ring-2 focus:ring-gray-400'
 
   return (
     <main className="min-h-screen flex items-center justify-center bg-gray-50">
@@ -53,16 +89,31 @@ export default function LoginPage() {
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Email
+              Username
             </label>
             <input
-              type="email"
-              value={email}
-              onChange={e => setEmail(e.target.value)}
+              type="text"
+              value={username}
+              onChange={e => setUsername(e.target.value)}
               required
-              className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-400"
+              className={inputClass}
             />
           </div>
+
+          {modo === 'registo' && (
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Email
+              </label>
+              <input
+                type="email"
+                value={email}
+                onChange={e => setEmail(e.target.value)}
+                required
+                className={inputClass}
+              />
+            </div>
+          )}
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -74,7 +125,7 @@ export default function LoginPage() {
               onChange={e => setPassword(e.target.value)}
               required
               minLength={6}
-              className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-400"
+              className={inputClass}
             />
           </div>
 
