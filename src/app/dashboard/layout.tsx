@@ -2,6 +2,7 @@ import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
 import LogoutButton from './LogoutButton'
+import MenuMobile from '@/components/MenuMobile'
 
 export default async function DashboardLayout({
   children,
@@ -54,12 +55,7 @@ export default async function DashboardLayout({
           <p className="text-xs font-semibold text-gray-400 uppercase tracking-widest">
             Herlander CRM
           </p>
-          <div className="flex items-center gap-3">
-            <Link href="/dashboard/clientes" className="text-sm text-gray-700">Clientes</Link>
-            <Link href="/dashboard/sessoes" className="text-sm text-gray-700">Sessões</Link>
-            <Link href="/dashboard/calendario" className="text-sm text-gray-700">Calendário</Link>
-            <LogoutButton />
-          </div>
+          <MenuMobile username={profile?.username ?? user.email ?? ''} />
         </header>
 
         <main className="flex-1 p-4 md:p-8">{children}</main>
