@@ -49,6 +49,12 @@ export default async function SessoesPage() {
               </div>
               <div className="flex items-center gap-4 shrink-0">
                 <Link
+                  href={`/dashboard/sessoes/${s.id}`}
+                  className="text-sm text-gray-500 hover:text-gray-900 transition"
+                >
+                  Ver
+                </Link>
+                <Link
                   href={`/dashboard/sessoes/${s.id}/editar`}
                   className="text-sm text-gray-500 hover:text-gray-900 transition"
                 >
