@@ -51,11 +51,11 @@ export default async function DashboardLayout({
       <div className="flex-1 flex flex-col min-w-0">
 
         {/* Barra de topo — telemóvel */}
-        <header className="md:hidden bg-white border-b border-gray-200 px-4 py-3 flex items-center justify-between">
+        <header className="md:hidden bg-white border-b border-gray-200 px-4 py-3 flex items-center gap-3">
+          <MenuMobile username={profile?.username ?? user.email ?? ''} />
           <p className="text-xs font-semibold text-gray-400 uppercase tracking-widest">
             Herlander CRM
           </p>
-          <MenuMobile username={profile?.username ?? user.email ?? ''} />
         </header>
 
         <main className="flex-1 p-4 md:p-8">{children}</main>
