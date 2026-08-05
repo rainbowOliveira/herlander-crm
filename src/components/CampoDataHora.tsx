@@ -10,26 +10,19 @@ interface Props {
 
 export default function CampoDataHora({ defaultDiaTodo = false, defaultValue, inputClass }: Props) {
   const [diaTodo, setDiaTodo] = useState(defaultDiaTodo)
-
-  // Keep both values in sync so switching preserves what the user picked
-  const [valorDatetime, setValorDatetime] = useState(() => {
-    if (!defaultValue) return ''
-    return defaultDiaTodo ? `${defaultValue}T00:00` : defaultValue
-  })
-  const [valorData, setValorData] = useState(() => defaultValue?.slice(0, 10) ?? '')
+  const [valorData, setValorData] = useState(defaultValue?.slice(0, 10) ?? '')
+  const [valorHora, setValorHora] = useState(
+    !defaultDiaTodo && defaultValue?.length === 16 ? defaultValue.slice(11, 16) : ''
+  )
 
   function handleToggle(checked: boolean) {
-    if (checked) {
-      // datetime → all-day: copy the date the user already chose
-      if (valorDatetime) setValorData(valorDatetime.slice(0, 10))
-    } else {
-      // all-day → datetime: sync date, keep existing time if date unchanged
-      if (valorData && valorDatetime.slice(0, 10) !== valorData) {
-        setValorDatetime(valorData + 'T00:00')
-      }
-    }
     setDiaTodo(checked)
   }
+
+  // Value submitted to the server action via the hidden input
+  const dataHoraSubmit = diaTodo
+    ? valorData
+    : valorData ? `${valorData}T${valorHora || '00:00'}` : ''
 
   return (
     <div className="w-full overflow-hidden">
@@ -47,24 +40,34 @@ export default function CampoDataHora({ defaultDiaTodo = false, defaultValue, in
           <span className="text-sm text-gray-500">Dia todo</span>
         </label>
       </div>
+
+      {/* Combined value for the server action */}
+      <input type="hidden" name="data_hora" value={dataHoraSubmit} />
+
       {diaTodo ? (
         <input
           type="date"
-          name="data_hora"
           required
           value={valorData}
           onChange={e => setValorData(e.target.value)}
           className={inputClass}
         />
       ) : (
-        <input
-          type="datetime-local"
-          name="data_hora"
-          required
-          value={valorDatetime}
-          onChange={e => setValorDatetime(e.target.value)}
-          className={inputClass}
-        />
+        <div className="flex gap-2">
+          <input
+            type="date"
+            required
+            value={valorData}
+            onChange={e => setValorData(e.target.value)}
+            className={`${inputClass} flex-1 min-w-0`}
+          />
+          <input
+            type="time"
+            value={valorHora}
+            onChange={e => setValorHora(e.target.value)}
+            className={`${inputClass} w-24 shrink-0`}
+          />
+        </div>
       )}
     </div>
   )
